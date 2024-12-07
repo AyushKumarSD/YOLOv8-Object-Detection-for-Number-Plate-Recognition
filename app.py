@@ -42,8 +42,6 @@ if uploaded_file is not None:
             frame_interval = int(fps)  # Process 1 frame per second
 
             # Start processing frames
-            processed_video = []
-
             while cap.isOpened():
                 ret, frame = cap.read()
                 if not ret:
@@ -69,18 +67,21 @@ if uploaded_file is not None:
 
                     # Write the processed frame to the output video
                     out.write(cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR))
-                    
-                    # Collect processed frame as a byte array to stream in video
-                    _, buffer = cv2.imencode('.jpg', frame_rgb)
-                    processed_video.append(buffer.tobytes())
 
             cap.release()
             out.release()
 
-            # Stream the processed video using st.video
+            # Provide a download button for the processed video
+            with open(output_video.name, "rb") as video_file:
+                video_bytes = video_file.read()
+
             st.subheader("Processed Video")
-            for frame_bytes in processed_video:
-                st.video(frame_bytes)
+            st.download_button(
+                label="Download Processed Video",
+                data=video_bytes,
+                file_name="processed_video.mp4",
+                mime="video/mp4"
+            )
 
         # If the uploaded file is an image
         else:
