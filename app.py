@@ -39,7 +39,7 @@ if uploaded_file is not None:
 
             # Stream the processed video
             frame_count = 0
-            frame_interval = int(fps/3)  # Process 3 frame per second
+            frame_interval = int(fps/2)  # Process 2 frame per second
 
             # Start processing frames
             while cap.isOpened():
