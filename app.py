@@ -18,11 +18,12 @@ if uploaded_file is not None:
     with st.spinner("Processing...🛠"):
         # If the uploaded file is a video
         if uploaded_file.type == "video/mp4":
-            # Save the video file to a temporary location
+            # Read the video file
             video_bytes = uploaded_file.read()
             with open("temp_video.mp4", "wb") as f:
                 f.write(video_bytes)
-            
+
+            # Open the video file using OpenCV
             cap = cv2.VideoCapture("temp_video.mp4")
             model = YOLO("best.pt")
             reader = Reader(['en'], gpu=True)
@@ -36,13 +37,13 @@ if uploaded_file is not None:
             output_video = tempfile.NamedTemporaryFile(delete=False, suffix=".mp4")
             out = cv2.VideoWriter(output_video.name, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
 
-            st.subheader("Processed Video")
-
-            # Frame counter to track frames
+            # Stream the processed video
             frame_count = 0
             frame_interval = int(fps)  # Process 1 frame per second
 
-            # Process each frame from the video
+            # Start processing frames
+            processed_video = []
+
             while cap.isOpened():
                 ret, frame = cap.read()
                 if not ret:
@@ -68,12 +69,18 @@ if uploaded_file is not None:
 
                     # Write the processed frame to the output video
                     out.write(cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR))
+                    
+                    # Collect processed frame as a byte array to stream in video
+                    _, buffer = cv2.imencode('.jpg', frame_rgb)
+                    processed_video.append(buffer.tobytes())
 
             cap.release()
             out.release()
 
-            # Stream the processed video in the app
-            st.video(output_video.name)
+            # Stream the processed video using st.video
+            st.subheader("Processed Video")
+            for frame_bytes in processed_video:
+                st.video(frame_bytes)
 
         # If the uploaded file is an image
         else:
