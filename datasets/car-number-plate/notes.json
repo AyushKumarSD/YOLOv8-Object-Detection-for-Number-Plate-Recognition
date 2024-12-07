@@ -1,0 +1,13 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Number Plate"
+    }
+  ],
+  "info": {
+    "year": 2023,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
