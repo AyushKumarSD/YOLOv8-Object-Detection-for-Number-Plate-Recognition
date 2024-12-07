@@ -1,3 +1,4 @@
+dill
 streamlit
 ultralytics
 easyocr
