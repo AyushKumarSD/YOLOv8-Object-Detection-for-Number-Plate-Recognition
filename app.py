@@ -20,7 +20,7 @@ if uploaded_file is not None:
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Load the YOLO model and EasyOCR reader
-        model = YOLO("runs/detect/train/weights/best.pt")
+        model = YOLO("best.pt")
         reader = Reader(['en'], gpu=True)
 
         # Split the page into two columns
