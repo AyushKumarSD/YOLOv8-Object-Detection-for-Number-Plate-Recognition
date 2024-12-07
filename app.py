@@ -40,7 +40,7 @@ if uploaded_file is not None:
 
             # Frame counter to track frames
             frame_count = 0
-            frame_interval = int(fps)  # Process 6 frames per second
+            frame_interval = int(fps)  # Process 1 frame per second
 
             # Process each frame from the video
             while cap.isOpened():
@@ -50,7 +50,7 @@ if uploaded_file is not None:
 
                 frame_count += 1
 
-                # Only process every 'frame_interval'-th frame (10 fps)
+                # Only process every 'frame_interval'-th frame (1 fps)
                 if frame_count % frame_interval == 0:
                     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
