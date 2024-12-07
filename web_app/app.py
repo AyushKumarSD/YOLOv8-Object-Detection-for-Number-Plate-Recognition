@@ -70,7 +70,4 @@ if uploaded_file is not None:
 else:
     st.info("Please upload an image to get started.")
 
-st.markdown("<br><hr><center>Made with ❤️ by "
-            "<a href='https://dontrepeatyourself.org"
-            "'><strong>DontRepeatYourself</strong></center><hr>",
-            unsafe_allow_html=True)
+
