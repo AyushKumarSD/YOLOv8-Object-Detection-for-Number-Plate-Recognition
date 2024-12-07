@@ -4,6 +4,9 @@ from easyocr import Reader
 import cv2
 import os
 import sys
+import tempfile
+
+
 sys.path.append(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detect_and_recognize import detect_number_plates, recognize_number_plates
