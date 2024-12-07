@@ -40,7 +40,7 @@ if uploaded_file is not None:
 
             # Frame counter to track frames
             frame_count = 0
-            frame_interval = int(fps/6)  # Process 6 frames per second
+            frame_interval = int(fps)  # Process 6 frames per second
 
             # Process each frame from the video
             while cap.isOpened():
